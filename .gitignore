@@ -1,0 +1,22 @@
+# hidden files
+.*
+
+# Vagrant
+Vagrantfile
+
+# logs
+*.log
+
+# configuration
+*.toml
+
+# dependencies
+/vendor
+
+# builds
+/dist
+/build
+/docs/public
+
+# IntelliJ
+.idea

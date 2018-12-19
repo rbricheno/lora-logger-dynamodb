@@ -1,0 +1,14 @@
+[Unit]
+Description=LoRa Logger
+Documentation=https://github.com/rbricheno/lora-logger
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=loralogger
+Group=loralogger
+ExecStart=/usr/bin/loralogger
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

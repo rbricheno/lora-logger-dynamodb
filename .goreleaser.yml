@@ -1,0 +1,44 @@
+git:
+  short_hash: true
+
+project_name: loralogger
+
+builds:
+  - main: cmd/loralogger/main.go
+    binary: loralogger
+    goos:
+      - windows
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - 386
+      - arm
+      - arm64
+    goarm:
+      - 5
+      - 6
+      - 7
+    ignore:
+      - goos: darwin
+        goarch: 386
+
+release:
+  disable: true
+
+nfpm:
+  vendor: Rob Bricheno
+  homepage: https://github.com/rbricheno/loralogger
+  maintainer: Rob Bricheno <rwhb2@cam.ac.uk>
+  description: LoRa Logger
+  license: MIT
+  formats:
+    - deb
+  bindir: /usr/bin
+  files:
+    "packaging/files/lora-logger.rotate": "/etc/logrotate.d/loralogger"
+    "packaging/files/lora-logger.init": "/usr/lib/loralogger/scripts/loralogger.init"
+    "packaging/files/lora-logger.service": "/usr/lib/loralogger/scripts/loralogger.service"
+  scripts:
+    postinstall: "packaging/scripts/post-install.sh"
+    postremove: "packaging/scripts/post-remove.sh"

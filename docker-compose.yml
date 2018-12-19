@@ -1,0 +1,8 @@
+version: "3"
+services:
+  loralogger:
+    build:
+      context: .
+      dockerfile: Dockerfile-devel
+    volumes:
+      - ./:/go/src/github.com/rbricheno/lora-logger

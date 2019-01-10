@@ -17,7 +17,7 @@ const configTemplate = `[general]
 log_level={{ .General.LogLevel }}
 
 
-[lora_logger]
+[loralogger]
 # Bind
 #
 # The interface:port on which the lora-logger will bind for receiving

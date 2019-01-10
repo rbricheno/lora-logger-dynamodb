@@ -33,7 +33,7 @@ func init() {
 	viper.SetDefault("loralogger.bind", "0.0.0.0:1950")
 	viper.SetDefault("loralogger.region", "us-east-1")
 	viper.SetDefault("loralogger.table", "LoRaWAN")
-	viper.SetDefault("loralogger.credentials_path", "$HOME/.aws/credentials")
+	viper.SetDefault("loralogger.credentials_path", "/home/lora/.aws/credentials")
 	viper.SetDefault("loralogger.credentials_profile", "default")
 
 	rootCmd.AddCommand(versionCmd)

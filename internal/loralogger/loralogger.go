@@ -166,16 +166,16 @@ func (m *LoraLogger) handleUplinkPacket(up udpPacket) error {
 	input := &dynamodb.UpdateItemInput{
 		ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
 			":g": {
-				N: aws.String(gatewayID),
+				S: aws.String(gatewayID),
 			},
 			":p": {
-				N: aws.String(base64.StdEncoding.EncodeToString(up.data)),
+				S: aws.String(base64.StdEncoding.EncodeToString(up.data)),
 			},
 		},
 		TableName: aws.String(m.config.Table),
 		Key: map[string]*dynamodb.AttributeValue{
 			"item": {
-				N: aws.String("raw#" + currentTime.Format("2006-01-02")),
+				S: aws.String("raw#" + currentTime.Format("2006-01-02")),
 			},
 			"date_or_time": {
 				S: aws.String(currentTime.Format("15:04:05.000000")),

@@ -1,6 +1,6 @@
 package main
 
-import "github.com/rbricheno/lora-logger/cmd/loralogger/cmd"
+import "github.com/rbricheno/lora-logger-dynamodb/cmd/loralogger/cmd"
 
 var version string // set by the compiler
 

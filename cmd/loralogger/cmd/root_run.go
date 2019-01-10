@@ -9,8 +9,8 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	"github.com/rbricheno/lora-logger/internal/config"
-	"github.com/rbricheno/lora-logger/internal/loralogger"
+	"github.com/rbricheno/lora-logger-dynamodb/internal/config"
+	"github.com/rbricheno/lora-logger-dynamodb/internal/loralogger"
 )
 
 func run(cmd *cobra.Command, args []string) error {

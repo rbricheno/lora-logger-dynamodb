@@ -39,7 +39,6 @@ func New(c Config) (*LoraLogger, error) {
 	m := LoraLogger{
 		//backends: make(map[string]map[string]*net.UDPConn),
 		gateways: make(map[string]*net.UDPAddr),
-		config:   c,
 	}
 
 	addr, err := net.ResolveUDPAddr("udp", c.Bind)
@@ -47,6 +46,7 @@ func New(c Config) (*LoraLogger, error) {
 		return nil, errors.Wrap(err, "resolve udp addr error")
 	}
 
+	config = c
 	log.WithField("addr", addr).Info("starting listener")
 	m.conn, err = net.ListenUDP("udp", addr)
 	if err != nil {

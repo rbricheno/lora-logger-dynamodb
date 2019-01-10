@@ -7,7 +7,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 
-	"github.com/rbricheno/lora-logger/internal/config"
+	"github.com/rbricheno/lora-logger-dynamodb/internal/config"
 )
 
 const configTemplate = `[general]

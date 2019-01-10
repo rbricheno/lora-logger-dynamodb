@@ -1,6 +1,6 @@
 [Unit]
 Description=LoRa Logger
-Documentation=https://github.com/rbricheno/lora-logger
+Documentation=https://github.com/rbricheno/lora-logger-dynamodb
 Wants=network-online.target
 After=network-online.target
 

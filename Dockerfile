@@ -1,6 +1,6 @@
 FROM golang:1.11-alpine AS development
 
-ENV PROJECT_PATH=/go/src/github.com/rbricheno/lora-logger
+ENV PROJECT_PATH=/go/src/github.com/rbricheno/lora-logger-dynamodb
 ENV PATH=$PATH:$PROJECT_PATH/build
 ENV CGO_ENABLED=0
 ENV GO_EXTRA_BUILD_ARGS="-a -installsuffix cgo"
@@ -18,5 +18,5 @@ FROM alpine:latest AS production
 
 WORKDIR /root/
 RUN apk --no-cache add tzdata
-COPY --from=development /go/src/github.com/rbricheno/lora-logger/build/lora-logger .
+COPY --from=development /go/src/github.com/rbricheno/lora-logger-dynamodb/build/lora-logger .
 ENTRYPOINT ["./lora-logger"]

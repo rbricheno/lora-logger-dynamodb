@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/pkg/errors"
@@ -150,8 +151,11 @@ func (m *LoraLogger) handleUplinkPacket(up udpPacket) error {
 		"packet_type": pt,
 	}).Info("Logging packet to DynamoDB")
 
+	creds := credentials.NewSharedCredentials(m.config.CredentialsPath, m.config.CredentialsProfile)
+
 	sess, err := session.NewSession(&aws.Config{
-		Region: aws.String(m.config.Region)},
+		Region:      aws.String(m.config.Region),
+		Credentials: creds},
 	)
 
 	// Create DynamoDB client

@@ -33,6 +33,16 @@ region="{{ .LoraLogger.Region }}
 #
 # The name of the DynamoDB table to use.
 table="{{ .LoraLogger.Table }}
+
+# Credentials path
+#
+# The path to your AWS shared credentials.
+credentials_path="{{ .LoraLogger.CredentialsPath }}
+
+# Credentials profile
+#
+# The profile from your AWS shared credentials.
+credentials_profile="{{ .LoraLogger.CredentialsProfile }}
 `
 
 var configCmd = &cobra.Command{

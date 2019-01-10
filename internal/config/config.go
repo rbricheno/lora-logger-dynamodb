@@ -1,6 +1,6 @@
 package config
 
-import "github.com/rbricheno/lora-logger/internal/loralogger"
+import "github.com/rbricheno/lora-logger-dynamodb/internal/loralogger"
 
 // Version holds the LoRa Logger version.
 var Version string

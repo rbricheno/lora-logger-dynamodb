@@ -31,6 +31,8 @@ func init() {
 	viper.BindPFlag("general.log_level", rootCmd.PersistentFlags().Lookup("log-level"))
 
 	viper.SetDefault("loralogger.bind", "0.0.0.0:1950")
+	viper.SetDefault("loralogger.region", "us-east-1")
+	viper.SetDefault("loralogger.table", "LoRaWAN")
 
 	rootCmd.AddCommand(versionCmd)
 	rootCmd.AddCommand(configCmd)

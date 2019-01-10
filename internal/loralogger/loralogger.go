@@ -3,10 +3,14 @@ package loralogger
 import (
 	"bytes"
 	"encoding/base64"
+	"fmt"
 	"net"
 	"sync"
 	"time"
 
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/pkg/errors"
 	log "github.com/sirupsen/logrus"
 	"github.com/utahta/go-cronowriter"
@@ -35,6 +39,7 @@ func New(c Config) (*LoraLogger, error) {
 	m := LoraLogger{
 		//backends: make(map[string]map[string]*net.UDPConn),
 		gateways: make(map[string]*net.UDPAddr),
+		config:   c,
 	}
 
 	addr, err := net.ResolveUDPAddr("udp", c.Bind)
@@ -143,7 +148,45 @@ func (m *LoraLogger) handleUplinkPacket(up udpPacket) error {
 		"from_addr":   up.addr,
 		"gateway_id":  gatewayID,
 		"packet_type": pt,
-	}).Info("Logging packet to text file")
+	}).Info("Logging packet to DynamoDB")
+
+	sess, err := session.NewSession(&aws.Config{
+		Region: aws.String(m.config.Region)},
+	)
+
+	// Create DynamoDB client
+	svc := dynamodb.New(sess)
+
+	currentTime := time.Now()
+
+	input := &dynamodb.UpdateItemInput{
+		ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
+			":g": {
+				N: aws.String(gatewayID),
+			},
+			":p": {
+				N: aws.String(base64.StdEncoding.EncodeToString(up.data)),
+			},
+		},
+		TableName: aws.String(m.config.Table),
+		Key: map[string]*dynamodb.AttributeValue{
+			"item": {
+				N: aws.String("raw#" + currentTime.Format("2006-01-02")),
+			},
+			"date_or_time": {
+				S: aws.String(currentTime.Format("15:04:05.000000")),
+			},
+		},
+		ReturnValues:     aws.String("UPDATED_NEW"),
+		UpdateExpression: aws.String("set gateway_id = :g, packet = :p"),
+	}
+
+	_, err = svc.UpdateItem(input)
+
+	if err != nil {
+		fmt.Println(err.Error())
+		return errors.Wrap(err, "DynamoDB error")
+	}
 
 	w := cronowriter.MustNew("/var/log/loralogger/%Y/%m/%d/lora.log")
 

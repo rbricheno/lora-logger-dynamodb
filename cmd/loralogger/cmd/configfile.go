@@ -23,6 +23,16 @@ log_level={{ .General.LogLevel }}
 # The interface:port on which the lora-logger will bind for receiving
 # data from the packet-forwarder (UDP data).
 bind="{{ .LoraLogger.Bind }}"
+
+# Region
+#
+# The region in which the DynamoDB is running.
+region="{{ .LoraLogger.Region }}
+
+# Table
+#
+# The name of the DynamoDB table to use.
+table="{{ .LoraLogger.Table }}
 `
 
 var configCmd = &cobra.Command{

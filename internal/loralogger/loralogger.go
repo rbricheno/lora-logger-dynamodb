@@ -47,7 +47,6 @@ func New(c Config) (*LoraLogger, error) {
 		return nil, errors.Wrap(err, "resolve udp addr error")
 	}
 
-	config = c
 	log.WithField("addr", addr).Info("starting listener")
 	m.conn, err = net.ListenUDP("udp", addr)
 	if err != nil {

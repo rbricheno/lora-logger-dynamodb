@@ -172,7 +172,7 @@ func (m *LoraLogger) handleUplinkPacket(up udpPacket) error {
 				S: aws.String(base64.StdEncoding.EncodeToString(up.data)),
 			},
 			":e": {
-				N: aws.Int(currentTime.AddDate(0, 0, 14).Unix()),
+				N: aws.Int64(currentTime.AddDate(0, 0, 14).Unix()),
 			},
 		},
 		TableName: aws.String(m.config.Table),

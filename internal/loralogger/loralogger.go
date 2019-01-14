@@ -173,7 +173,7 @@ func (m *LoraLogger) handleUplinkPacket(up udpPacket) error {
 			},
 			":t": {
 				S: aws.String(currentTime.Format("15:04:05.000000")),
-			}
+			},
 		},
 		TableName: aws.String(m.config.Table),
 		Key: map[string]*dynamodb.AttributeValue{

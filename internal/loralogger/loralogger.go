@@ -185,7 +185,7 @@ func (m *LoraLogger) handleUplinkPacket(up udpPacket) error {
 			},
 		},
 		ReturnValues:     aws.String("UPDATED_NEW"),
-		UpdateExpression: aws.String("set gateway_id = :g, time = :t, packet = :p"),
+		UpdateExpression: aws.String("set gateway_id = :g, log_time = :t, packet = :p"),
 	}
 
 	_, err = svc.UpdateItem(input)

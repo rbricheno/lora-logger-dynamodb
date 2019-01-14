@@ -171,6 +171,9 @@ func (m *LoraLogger) handleUplinkPacket(up udpPacket) error {
 			":p": {
 				S: aws.String(base64.StdEncoding.EncodeToString(up.data)),
 			},
+			":e": {
+				N: aws.Integer(currentTime.AddDate(0, 0, 14).Unix()),
+			},
 		},
 		TableName: aws.String(m.config.Table),
 		Key: map[string]*dynamodb.AttributeValue{
@@ -182,7 +185,7 @@ func (m *LoraLogger) handleUplinkPacket(up udpPacket) error {
 			},
 		},
 		ReturnValues:     aws.String("UPDATED_NEW"),
-		UpdateExpression: aws.String("set gateway_id = :g, packet = :p"),
+		UpdateExpression: aws.String("set gateway_id = :g, packet = :p, expires = :e"),
 	}
 
 	_, err = svc.UpdateItem(input)

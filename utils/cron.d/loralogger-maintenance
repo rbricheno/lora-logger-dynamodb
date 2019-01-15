@@ -1,0 +1,2 @@
+# loralogger remove old log files (2:30AM each day)
+30 2 * * *      root    /usr/bin/find /var/log/loralogger/* -type d -ctime +28 -exec rm -rf {} +
